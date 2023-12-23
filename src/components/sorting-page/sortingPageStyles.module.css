@@ -1,0 +1,31 @@
+.page {
+    padding-right: 130px;
+    padding-left: 90px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.box {
+    
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.button {
+    width: 205px;
+    margin-right: 12px;
+}
+
+.radio {
+    margin-left: 40px;
+}
+
+.columns {
+    margin-top: 48px;
+    display: grid;
+    grid-auto-flow: column;
+    align-items: end;
+}
