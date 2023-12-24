@@ -1,0 +1,41 @@
+.form {
+    display: grid;
+    grid-template-columns: repeat(5, auto);
+    column-gap: 12px;
+    row-gap: 38px;
+    margin: 0 144px 0px;
+}
+
+.form__index {
+    display: grid;
+    grid-template-columns: repeat(3, auto);
+    margin: 26px 144px 90px;
+    
+}
+
+.input {
+    width: 204px;
+}
+
+.button {
+    width: 175px;
+}
+
+.button__index {
+    width: 362px;
+}
+
+.circle__container {
+    display: grid;
+    grid-auto-flow: column;
+    align-items: center;
+    justify-content: center;
+    column-gap: 16px;
+}
+
+.circle {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 25px;
+}
