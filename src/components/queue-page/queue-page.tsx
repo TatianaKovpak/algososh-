@@ -118,10 +118,10 @@ export const QueuePage: React.FC = () => {
       <div className={queueStyles.page}>
         <div className={queueStyles.input}>
           <Input placeholder='Введите текст' value={value} isLimitText = {true} maxLength={4} type="text" onChange={onChange}/>
-          <Button text="Добавить" onClick={addItem} isLoader={isRendering.isAdding} disabled={(value === '' || ( array.length >=6 ) ) ? true : false} />
-          <Button text="Удалить" onClick={removeItem} isLoader={isRendering.isRemoving} disabled={isItems.length ? false : true} />
+          <Button text="Добавить" onClick={addItem} isLoader={isRendering.isAdding} disabled={((value === '' || ( array.length >=6 ) ) ? true : false) || isRendering.isRemoving || isRendering.isClearing} />
+          <Button text="Удалить" onClick={removeItem} isLoader={isRendering.isRemoving} disabled={(isItems.length ? false : true) || isRendering.isAdding|| isRendering.isClearing} />
         </div>
-        <Button text="Очистить" onClick={clearItems} isLoader={isRendering.isClearing} disabled={isItems.length ? false : true}/>
+        <Button text="Очистить" onClick={clearItems} isLoader={isRendering.isClearing} disabled={(isItems.length ? false : true) || isRendering.isRemoving || isRendering.isAdding}/>
       </div>
       <div className={queueStyles.circles}>
         { arr}

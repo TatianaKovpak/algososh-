@@ -24,7 +24,16 @@ export const ListPage: React.FC = () => {
   const [indexValue, setIndexValue] = React.useState('')
   const [linkedList, setLinkedList] = React.useState(new LinkedList<ILinkedList>(randomArr()))
   const [linkedListToRender, setLinkedListToRender] = React.useState<JSX.Element[]>([])
-  const [isRendering, setIsRendering] = React.useState(false)
+  const [isRendering, setIsRendering] = React.useState({
+    isHeadAdding: false,
+    isTailAdding: false,
+    isHeadDeleting: false,
+    isTailDeleting: false,
+    isAddingToArray: false,
+    isDeletingFromArray: false
+  })
+  const [isDisabled, setIsDisabled] = React.useState(false)
+
   const changeValue = (e:React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value)
   }
@@ -82,7 +91,8 @@ export const ListPage: React.FC = () => {
 
 
  async function addItemToHead () {
-  setIsRendering(true)
+  setIsRendering({...isRendering, isHeadAdding: true})
+  setIsDisabled(true)
 
   if(linkedList.getArray()[0]){
     linkedList.getArray()[0].head = <Circle isSmall letter={value} state={ElementStates.Changing}/>
@@ -107,12 +117,15 @@ export const ListPage: React.FC = () => {
   await delay(SHORT_DELAY_IN_MS)
   renderLinkedList()
 
-  setIsRendering(false)
+  setIsRendering({...isRendering, isHeadAdding: false})
+  setIsDisabled(false)
 
  }
 
  async function addItemToTail () {
-  setIsRendering(true)
+ 
+    setIsRendering({...isRendering, isTailAdding: true})
+  setIsDisabled(true)
   const tail = linkedList.getSize() - 1
   if(linkedList.getArray()[tail] ) {
     linkedList.getArray()[tail].head = <Circle isSmall letter={value} state={ElementStates.Changing}/>
@@ -141,12 +154,16 @@ export const ListPage: React.FC = () => {
   await delay(SHORT_DELAY_IN_MS)
   renderLinkedList()
 
-  setIsRendering(false)
+  setIsRendering({...isRendering, isTailAdding: false})
+  setIsDisabled(false)
 
+
+    
  }
 
  async function deleteHead () {
-  setIsRendering(true)
+  setIsRendering({...isRendering, isHeadDeleting: true})
+  setIsDisabled(true)
 
   linkedList.getArray()[0].tail = <Circle isSmall letter={linkedList.getArray()[0].value} state={ElementStates.Changing}/>
   linkedList.getArray()[0].value = ''
@@ -158,12 +175,14 @@ export const ListPage: React.FC = () => {
   setLinkedList(linkedList)
   renderLinkedList()
 
-  setIsRendering(false)
+  setIsRendering({...isRendering, isHeadDeleting: false})
+  setIsDisabled(false)
 
 }
 
 async function deleteTail () {
-  setIsRendering(true)
+  setIsRendering({...isRendering, isTailDeleting: true})
+  setIsDisabled(true)
 
   const tail = linkedList.getSize() - 1
   linkedList.getArray()[tail].tail = <Circle isSmall letter={linkedList.getArray()[tail].value} state={ElementStates.Changing}/>
@@ -176,7 +195,8 @@ async function deleteTail () {
   setLinkedList(linkedList)
   renderLinkedList()
 
-  setIsRendering(false)
+  setIsRendering({...isRendering, isTailDeleting: false})
+  setIsDisabled(false)
 }
 
 
@@ -184,11 +204,13 @@ async function addItemByIndex () {
   const index = Number(indexValue)
 
   if(index > linkedList.getSize() || index === linkedList.getSize() + 1 || index === linkedList.getSize()){
+    setIsRendering({...isRendering, isAddingToArray: true})
     addItemToTail()
     setIndexValue('')
     setValue('')
   } else {
-    setIsRendering(true)
+    setIsDisabled(true)
+    setIsRendering({...isRendering, isAddingToArray: true})
     linkedList.getArray()[index].head = <Circle isSmall letter={value} state={ElementStates.Changing} />
     linkedList.getArray()[index].state = ElementStates.Changing
     setLinkedList(linkedList)
@@ -214,12 +236,14 @@ async function addItemByIndex () {
     setLinkedList(linkedList)
     await delay(SHORT_DELAY_IN_MS)
     renderLinkedList()
-    setIsRendering(false)
+    setIsRendering({...isRendering, isAddingToArray: false})
+    setIsDisabled(false)
   }
 }
 
 async function deleteByIndex () {
-  setIsRendering(true)
+  setIsRendering({...isRendering, isDeletingFromArray: true})
+  setIsDisabled(true)
   const index = Number(indexValue)
   if(index === 0) {
     deleteHead()
@@ -244,8 +268,10 @@ async function deleteByIndex () {
 
   }
 
-setIsRendering(false)
+setIsRendering({...isRendering, isDeletingFromArray: false})
+setIsDisabled(false)
 }
+
 
 
 
@@ -253,15 +279,15 @@ setIsRendering(false)
     <SolutionLayout title="Связный список">
       <div className={listPageStyles.form}>
         <Input extraClass={listPageStyles.input} placeholder="Введите значение" isLimitText={true} maxLength={4} type="text" onChange={changeValue} value={value}/>
-        <Button extraClass={listPageStyles.button} disabled={(linkedListToRender.length >= 8 || value === '') ? true : false} type="button" text="Добавить в Head" onClick={addItemToHead} isLoader={isRendering === true ? true : false}/>
-        <Button extraClass={listPageStyles.button} disabled={(linkedListToRender.length >= 8 || value === '') ? true : false} type="button" text="Добавить в Tail" onClick={addItemToTail} isLoader={isRendering === true ? true : false}/>
-        <Button extraClass={listPageStyles.button} type="button" text="Удалить из Head" onClick={deleteHead} isLoader={isRendering === true ? true : false} disabled={linkedListToRender.length === 1 ? true : false}/>
-        <Button extraClass={listPageStyles.button} type="button" text="Удалить из Tail" onClick={deleteTail} isLoader={isRendering === true ? true : false} disabled={linkedListToRender.length === 1 ? true : false}/>
+        <Button extraClass={listPageStyles.button} disabled={(linkedListToRender.length >= 8 || value === '' || isDisabled) ? true : false} type="button" text="Добавить в Head" onClick={addItemToHead} isLoader={isRendering.isHeadAdding === true ? true : false}/>
+        <Button extraClass={listPageStyles.button} disabled={(linkedListToRender.length >= 8 || value === '' || isDisabled) ? true : false} type="button" text="Добавить в Tail" onClick={addItemToTail} isLoader={isRendering.isTailAdding === true ? true : false}/>
+        <Button extraClass={listPageStyles.button} type="button" text="Удалить из Head" onClick={deleteHead} isLoader={isRendering.isHeadDeleting === true ? true : false} disabled={(linkedListToRender.length === 1 || isDisabled) ? true : false}/>
+        <Button extraClass={listPageStyles.button} type="button" text="Удалить из Tail" onClick={deleteTail} isLoader={isRendering.isTailDeleting === true ? true : false} disabled={(linkedListToRender.length === 1 || isDisabled)? true : false}/>
         </div>
         <div className={listPageStyles.form__index}>
         <Input extraClass={listPageStyles.input}  placeholder="Введите индекс" isLimitText={true} max={7} onChange={changeIndexValue} value={indexValue} type='number'/>
-        <Button extraClass={listPageStyles.button__index} disabled={(linkedListToRender.length >= 8 ? true : false) || (indexValue === '' || Number(indexValue) > 7 || value === '' ? true : false)} type="button" text="Добавить по индексу" isLoader={isRendering === true ? true : false} onClick={addItemByIndex}/>
-        <Button extraClass={listPageStyles.button__index} disabled={(linkedListToRender.length === 1 || indexValue === '' || Number(indexValue ) >= linkedList.getSize() ) ? true : false} type="button" text="Удалить по индексу" isLoader={isRendering === true ? true : false} onClick={deleteByIndex} />
+        <Button extraClass={listPageStyles.button__index} disabled={(linkedListToRender.length >= 8 ? true : false) || (indexValue === '' || Number(indexValue) > 7 || value === '' || isDisabled ? true : false)} type="button" text="Добавить по индексу" isLoader={isRendering.isAddingToArray === true ? true : false} onClick={addItemByIndex}/>
+        <Button extraClass={listPageStyles.button__index} disabled={(linkedListToRender.length === 1 || indexValue === '' || Number(indexValue ) >= linkedList.getSize() || isDisabled ) ? true : false} type="button" text="Удалить по индексу" isLoader={isRendering.isDeletingFromArray === true ? true : false} onClick={deleteByIndex} />
         </div>
 
       

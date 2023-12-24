@@ -91,10 +91,10 @@ export const StackPage: React.FC = () => {
       <div className={stackStyles.page}>
         <div className={stackStyles.input}>
           <Input placeholder='Введите текст' value={value} isLimitText = {true} maxLength={4} type="text" onChange={onChange}/>
-          <Button text="Добавить" isLoader={isRendering.isAdding} onClick={addItem} disabled={!value ? true : false}/>
-          <Button text="Удалить" isLoader={isRendering.isRemoving} onClick={removeItem} disabled={!arrToRender.length ? true : false}/>
+          <Button text="Добавить" isLoader={isRendering.isAdding} onClick={addItem} disabled={(!value ? true : false) || isRendering.isRemoving || isRendering.isClearing}/>
+          <Button text="Удалить" isLoader={isRendering.isRemoving} onClick={removeItem} disabled={(!arrToRender.length ? true : false)  || isRendering.isAdding || isRendering.isClearing}/>
         </div>
-        <Button text="Очистить" isLoader={isRendering.isClearing} onClick={clearItems} disabled={!arrToRender.length ? true : false}/>
+        <Button text="Очистить" isLoader={isRendering.isClearing} onClick={clearItems} disabled={(!arrToRender.length ? true : false) || isRendering.isAdding || isRendering.isRemoving }/>
       </div>
       <div className={stackStyles.circles}>
         {arrToRender}

@@ -15,7 +15,11 @@ export const SortingPage: React.FC = () => {
   
 const [sortingArr, setArr] = React.useState<JSX.Element[]>([])
 const [variableSort, setVariableSort] = React.useState('choice')
-const [isRendering, setIsRendering] = React.useState(false)
+const [isRendering, setIsRendering] = React.useState({
+  isNewArr : false,
+  isDescending: false,
+  isAscending: false
+})
 
 React.useEffect(() => {
   randomArr()
@@ -42,7 +46,7 @@ function randomArr () : void {
   let array:number[] = []
   let min = Math.min(n, m); 
   let max = Math.max(n, m); 
-  setIsRendering(true)
+  setIsRendering({...isRendering, isNewArr : true})
 
   for(let i = 0; i < count; i++) { 
  
@@ -50,7 +54,7 @@ function randomArr () : void {
     array.push(randomNumber); 
   } 
    setArr(array.map((i, index) => <Column index={i} state={ElementStates.Default} key={index}/>)); 
-   setIsRendering(false)
+   setIsRendering({...isRendering, isNewArr : false})
 }
 
 
@@ -63,7 +67,7 @@ const choiceSelected = () => {
 }
 
 async function bubbleAscend() {
-  setIsRendering(true)
+  setIsRendering({...isRendering, isAscending: true})
   const arr = [...sortingArr].slice()
   for (let i = 0; i < arr.length - 1; i++) {
     for ( let j = arr.length - 1; j > i; j--) {
@@ -77,11 +81,11 @@ async function bubbleAscend() {
     }
     arr[arr.length - 1] = React.cloneElement(arr[arr.length - 1], {state : ElementStates.Modified});
     setArr([...arr])
-    setIsRendering(false)
+    setIsRendering({...isRendering, isAscending: false})
 }
 
 async function bubbleDescen () {
-  setIsRendering(true)
+  setIsRendering({...isRendering, isDescending: true})
   const arr = [...sortingArr].slice()
   for (let i = 0; i < arr.length - 1; i++) {
     for ( let j = arr.length - 1; j > i; j--) {
@@ -95,11 +99,11 @@ async function bubbleDescen () {
   }
   arr[arr.length - 1] = React.cloneElement(arr[arr.length - 1], {state : ElementStates.Modified});
   setArr([...arr])
-  setIsRendering(false)
+  setIsRendering({...isRendering, isDescending: false})
 }
 
 async function choiseAscend () {
-  setIsRendering(true)
+  setIsRendering({...isRendering, isAscending: true})
   const arr = [...sortingArr].slice()
     for (let i = 0; i < arr.length; i++) {
       let minIndex = i
@@ -116,11 +120,11 @@ async function choiseAscend () {
       arr[minIndex] = React.cloneElement(arr[minIndex], {state : ElementStates.Modified});
     }
     setArr(arr)
-    setIsRendering(false)
+    setIsRendering({...isRendering, isAscending: false})
 }
 
 async function choiseDescen () {
-  setIsRendering(true)
+  setIsRendering({...isRendering, isDescending: true})
   const arr = [...sortingArr].slice()
   for (let i = 0; i < arr.length; i++) {
     let minIndex = i
@@ -137,7 +141,7 @@ async function choiseDescen () {
     arr[minIndex] = React.cloneElement(arr[minIndex], {state : ElementStates.Modified});
   }
   setArr(arr)
-  setIsRendering(false)
+  setIsRendering({...isRendering, isDescending: false})
 }
 
   return (
@@ -148,10 +152,10 @@ async function choiseDescen () {
         <RadioInput label="Пузырёк" extraClass={sortingPageStyles.radio} onChange={bubbleSelected} checked={variableSort === 'bubble'}/>
       </div>
       <div className={sortingPageStyles.box}>
-        <Button text="По возрастанию" extraClass={sortingPageStyles.button} onClick={() => variableSort === 'bubble' ? bubbleAscend() : choiseAscend()} disabled={!sortingArr.length ? true : false} name="ascending" isLoader={isRendering ? true : false}/>
-        <Button text="По убыванию" extraClass={sortingPageStyles.button} onClick={() => variableSort === 'bubble' ? bubbleDescen() :choiseDescen()} disabled={!sortingArr.length ? true : false} name="descending" isLoader={isRendering ? true : false}/>
+        <Button text="По возрастанию" extraClass={sortingPageStyles.button} onClick={() => variableSort === 'bubble' ? bubbleAscend() : choiseAscend()} disabled={(!sortingArr.length ? true : false) || isRendering.isDescending || isRendering.isNewArr} name="ascending" isLoader={isRendering.isAscending ? true : false}/>
+        <Button text="По убыванию" extraClass={sortingPageStyles.button} onClick={() => variableSort === 'bubble' ? bubbleDescen() :choiseDescen()} disabled={!sortingArr.length ? true : false || isRendering.isAscending || isRendering.isNewArr} name="descending" isLoader={isRendering.isDescending ? true : false}/>
       </div>
-      <Button text="Новый массив" type="button" onClick={randomArr} isLoader={isRendering ? true : false}/>
+      <Button text="Новый массив" type="button" onClick={randomArr} isLoader={isRendering.isNewArr ? true : false} disabled={isRendering.isAscending || isRendering.isDescending}/>
       </div>
       <div className={sortingPageStyles.columns}>
 

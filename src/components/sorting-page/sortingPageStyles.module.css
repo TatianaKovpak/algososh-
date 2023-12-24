@@ -26,6 +26,9 @@
 .columns {
     margin-top: 48px;
     display: grid;
-    grid-auto-flow: column;
+    grid-template-columns: repeat( auto-fit,50px);
+    justify-content: center;
     align-items: end;
+    height: 320px;
+    gap: 10px;
 }
