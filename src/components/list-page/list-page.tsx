@@ -252,7 +252,7 @@ async function deleteByIndex () {
     deleteTail()
     setIndexValue('')
   } else {
-    linkedList.getArray()[index].tail = <Circle isSmall letter={linkedList.getArray()[0].value} state={ElementStates.Changing}/>
+    linkedList.getArray()[index].tail = <Circle isSmall letter={linkedList.getArray()[index].value} state={ElementStates.Changing}/>
     setLinkedList(linkedList)
     renderLinkedList()
     setIndexValue('')

@@ -15,16 +15,16 @@ function App() {
     <div className={appStyles.app}>
       <BrowserRouter>
         <Switch>
-          <Route path="/" exact>
+          <Route  path="/" exact>
             <MainPage />
           </Route>
-          <Route path="/recursion">
+          <Route  path="/recursion">
             <StringComponent />
           </Route>
           <Route path="/fibonacci">
             <FibonacciPage />
           </Route>
-          <Route path="/sorting">
+          <Route  path="/sorting">
             <SortingPage />
           </Route>
           <Route path="/stack">
