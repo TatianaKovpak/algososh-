@@ -1,6 +1,8 @@
+import { circle, circleContent } from "../constans/constans"
+
 describe('Проверка работы стэка', () => {
     beforeEach(() => {
-        cy.visit('http://localhost:3000/stack')
+        cy.visit('/stack')
     })
 
     it('Инпут пустой, кнопки неактивны', () => {
@@ -18,10 +20,10 @@ describe('Проверка работы стэка', () => {
 
         cy.clock()
 
-        cy.get('[class*=circle_content]').should('have.length', 1).should(($circle) => {
+        cy.get(circleContent).should('have.length', 1).should(($circle) => {
             expect($circle.eq(0)).to.contain('1')
             expect($circle.eq(0)).to.contain('top')
-            expect($circle.eq(0).children('[cy-id="circle"]')).to.have.css('border-color', 'rgb(210, 82, 225)')
+            expect($circle.eq(0).children(circle)).to.have.css('border-color', 'rgb(210, 82, 225)')
            })
         cy.tick(1000)   
 
@@ -29,33 +31,33 @@ describe('Проверка работы стэка', () => {
         cy.contains('Добавить').should('not.be.disabled').click()  
         cy.get('input').should('be.empty') 
 
-        cy.get('[class*=circle_content]').should('have.length', 2).should(($circle) => {
+        cy.get(circleContent).should('have.length', 2).should(($circle) => {
             expect($circle.eq(0)).to.contain('1')
             expect($circle.eq(1)).to.contain('2')
             expect($circle.eq(0)).not.to.contain('top')
             expect($circle.eq(1)).to.contain('top')
-            expect($circle.eq(0).children('[cy-id="circle"]')).to.have.css('border-color', 'rgb(0, 50, 255)')
-            expect($circle.eq(1).children('[cy-id="circle"]')).to.have.css('border-color', 'rgb(210, 82, 225)')
+            expect($circle.eq(0).children(circle)).to.have.css('border-color', 'rgb(0, 50, 255)')
+            expect($circle.eq(1).children(circle)).to.have.css('border-color', 'rgb(210, 82, 225)')
            })
         cy.tick(1000)
 
         cy.contains('Удалить').click()
 
-        cy.get('[class*=circle_content]').should('have.length', 2).should(($circle) => {
+        cy.get(circleContent).should('have.length', 2).should(($circle) => {
             expect($circle.eq(0)).to.contain('1')
             expect($circle.eq(1)).to.contain('2')
             expect($circle.eq(0)).not.to.contain('top')
             expect($circle.eq(1)).to.contain('top')
-            expect($circle.eq(0).children('[cy-id="circle"]')).to.have.css('border-color', 'rgb(0, 50, 255)')
-            expect($circle.eq(1).children('[cy-id="circle"]')).to.have.css('border-color', 'rgb(210, 82, 225)')
+            expect($circle.eq(0).children(circle)).to.have.css('border-color', 'rgb(0, 50, 255)')
+            expect($circle.eq(1).children(circle)).to.have.css('border-color', 'rgb(210, 82, 225)')
            })
 
         cy.tick(1000)
         
-        cy.get('[class*=circle_content]').should('have.length', 1).should(($circle) => {
+        cy.get(circleContent).should('have.length', 1).should(($circle) => {
             expect($circle.eq(0)).to.contain('1')
             expect($circle.eq(0)).to.contain('top')
-            expect($circle.eq(0).children('[cy-id="circle"]')).to.have.css('border-color', 'rgb(0, 50, 255)')
+            expect($circle.eq(0).children(circle)).to.have.css('border-color', 'rgb(0, 50, 255)')
            })
         
         
@@ -73,19 +75,19 @@ describe('Проверка работы стэка', () => {
 
         cy.contains('Очистить').should('not.be.disabled').click()
 
-        cy.get('[class*=circle_content]').should('have.length', 3).should(($circle) => {
+        cy.get(circleContent).should('have.length', 3).should(($circle) => {
             expect($circle.eq(0)).to.contain('1')
             expect($circle.eq(1)).to.contain('2')
             expect($circle.eq(2)).to.contain('3')
             expect($circle.eq(2)).to.contain('top')
-            expect($circle.eq(0).children('[cy-id="circle"]')).to.have.css('border-color', 'rgb(210, 82, 225)')
-            expect($circle.eq(1).children('[cy-id="circle"]')).to.have.css('border-color', 'rgb(210, 82, 225)')
-            expect($circle.eq(2).children('[cy-id="circle"]')).to.have.css('border-color', 'rgb(210, 82, 225)')
+            expect($circle.eq(0).children(circle)).to.have.css('border-color', 'rgb(210, 82, 225)')
+            expect($circle.eq(1).children(circle)).to.have.css('border-color', 'rgb(210, 82, 225)')
+            expect($circle.eq(2).children(circle)).to.have.css('border-color', 'rgb(210, 82, 225)')
             })
 
         cy.tick(1000)
 
-        cy.get('[class*=circle_content]').should('not.exist')
+        cy.get(circleContent).should('not.exist')
 
     })
 

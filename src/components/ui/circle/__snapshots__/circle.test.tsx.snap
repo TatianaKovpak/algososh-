@@ -9,6 +9,7 @@ exports[`Тестирование Circle circle changing 1`] = `
   />
   <div
     className="circle   changing"
+    cy-id="circle"
   >
     <p
       className="text text_type_circle text_color_input letter"
@@ -32,6 +33,7 @@ exports[`Тестирование Circle circle default 1`] = `
   />
   <div
     className="circle   default"
+    cy-id="circle"
   >
     <p
       className="text text_type_circle text_color_input letter"
@@ -55,6 +57,7 @@ exports[`Тестирование Circle circle is small 1`] = `
   />
   <div
     className="circle  small default"
+    cy-id="circle"
   >
     <p
       className="text text_type_circle text_color_input letter"
@@ -78,6 +81,7 @@ exports[`Тестирование Circle circle modified 1`] = `
   />
   <div
     className="circle   modified"
+    cy-id="circle"
   >
     <p
       className="text text_type_circle text_color_input letter"
@@ -103,6 +107,7 @@ exports[`Тестирование Circle circle with head 1`] = `
   </div>
   <div
     className="circle   default"
+    cy-id="circle"
   >
     <p
       className="text text_type_circle text_color_input letter"
@@ -126,6 +131,7 @@ exports[`Тестирование Circle circle with index 1`] = `
   />
   <div
     className="circle   default"
+    cy-id="circle"
   >
     <p
       className="text text_type_circle text_color_input letter"
@@ -151,6 +157,7 @@ exports[`Тестирование Circle circle with tail 1`] = `
   />
   <div
     className="circle   default"
+    cy-id="circle"
   >
     <p
       className="text text_type_circle text_color_input letter"
@@ -176,6 +183,7 @@ exports[`Тестирование Circle circle with text in head 1`] = `
   />
   <div
     className="circle   default"
+    cy-id="circle"
   >
     <p
       className="text text_type_circle text_color_input letter"
@@ -195,6 +203,7 @@ exports[`Тестирование Circle circle with text in head 1`] = `
       />
       <div
         className="circle  small default"
+        cy-id="circle"
       >
         <p
           className="text text_type_circle text_color_input letter"
@@ -222,6 +231,7 @@ exports[`Тестирование Circle circle with text in tail 1`] = `
   />
   <div
     className="circle   default"
+    cy-id="circle"
   >
     <p
       className="text text_type_circle text_color_input letter"
@@ -241,6 +251,7 @@ exports[`Тестирование Circle circle with text in tail 1`] = `
       />
       <div
         className="circle  small default"
+        cy-id="circle"
       >
         <p
           className="text text_type_circle text_color_input letter"
@@ -268,6 +279,7 @@ exports[`Тестирование Circle Без текста 1`] = `
   />
   <div
     className="circle   default"
+    cy-id="circle"
   >
     <p
       className="text text_type_circle text_color_input letter"
@@ -291,6 +303,7 @@ exports[`Тестирование Circle С текстом 1`] = `
   />
   <div
     className="circle   default"
+    cy-id="circle"
   >
     <p
       className="text text_type_circle text_color_input letter"

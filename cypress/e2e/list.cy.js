@@ -1,6 +1,8 @@
+import { circle, circleContent, circleSmall } from "../constans/constans"
+
 describe('Проверка работы связного списка', () => {
     beforeEach(() => {
-        cy.visit('http://localhost:3000/list')
+        cy.visit('/list')
     })
 
     it('Инпуты пустые, кнопки добавления неактивны, кнопки удаления активны', () => {
@@ -20,14 +22,14 @@ describe('Проверка работы связного списка', () => {
         cy.clock()
         
 
-        cy.get('[class*=circle_small]').should('exist').should('have.css', 'border-color', 'rgb(210, 82, 225)').should('have.text', '1')
+        cy.get(circleSmall).should('exist').should('have.css', 'border-color', 'rgb(210, 82, 225)').should('have.text', '1')
 
         cy.tick(1000) 
 
-        cy.get('[class*=circle_content]').should(($circle) => {
+        cy.get(circleContent).should(($circle) => {
             expect($circle.eq(0)).to.contain('1')
             expect($circle.eq(0)).to.contain('head')
-            expect($circle.eq(0).children('[cy-id="circle"]')).to.have.css('border-color', 'rgb(127, 224, 81)')
+            expect($circle.eq(0).children(circle)).to.have.css('border-color', 'rgb(127, 224, 81)')
            })
         
 
@@ -35,12 +37,12 @@ describe('Проверка работы связного списка', () => {
         
         cy.contains('Удалить из Head').should('not.be.disabled').click()
 
-        cy.get('[class*=circle_small]').should('exist').should('have.css', 'border-color', 'rgb(210, 82, 225)').should('have.text', '1')
+        cy.get(circleSmall).should('exist').should('have.css', 'border-color', 'rgb(210, 82, 225)').should('have.text', '1')
 
-        cy.get('[class*=circle_content]').should(($circle) => {
+        cy.get(circleContent).should(($circle) => {
             expect($circle.eq(0)).to.contain('')
             expect($circle.eq(0)).to.contain('head')
-            expect($circle.eq(0).children('[cy-id="circle"]')).to.have.css('border-color', 'rgb(0, 50, 255)')
+            expect($circle.eq(0).children(circle)).to.have.css('border-color', 'rgb(0, 50, 255)')
            })
 
 
@@ -50,14 +52,14 @@ describe('Проверка работы связного списка', () => {
         cy.get('input[type="text"]').type('1').should('have.value', '1') 
         cy.contains('Добавить в Tail').should('not.be.disabled').click()
 
-        cy.get('[class*=circle_small]').should('exist').should('have.css', 'border-color', 'rgb(210, 82, 225)').should('have.text', '1')
+        cy.get(circleSmall).should('exist').should('have.css', 'border-color', 'rgb(210, 82, 225)').should('have.text', '1')
 
         cy.tick(1000)
 
-        cy.get('[class*=circle_content]').should(($circle) => {
+        cy.get(circleContent).should(($circle) => {
             expect($circle.eq($circle.length - 1)).to.contain('1')
             expect($circle.eq($circle.length - 1)).to.contain('tail')
-            expect($circle.eq($circle.length - 1).children('[cy-id="circle"]')).to.have.css('border-color', 'rgb(127, 224, 81)')
+            expect($circle.eq($circle.length - 1).children(circle)).to.have.css('border-color', 'rgb(127, 224, 81)')
            })
 
 
@@ -65,14 +67,14 @@ describe('Проверка работы связного списка', () => {
         
         cy.contains('Удалить из Tail').should('not.be.disabled').click()
    
-        cy.get('[class*=circle_small]').should('exist').should('have.css', 'border-color', 'rgb(210, 82, 225)').should('have.text', '1')   
+        cy.get(circleSmall).should('exist').should('have.css', 'border-color', 'rgb(210, 82, 225)').should('have.text', '1')   
  
         cy.tick(1000)
 
-        cy.get('[class*=circle_content]').should(($circle) => {
+        cy.get(circleContent).should(($circle) => {
             expect($circle.eq($circle.length - 1)).to.contain('')
             expect($circle.eq($circle.length - 1)).to.contain('tail')
-            expect($circle.eq($circle.length - 1).children('[cy-id="circle"]')).to.have.css('border-color', 'rgb(0, 50, 255)')
+            expect($circle.eq($circle.length - 1).children(circle)).to.have.css('border-color', 'rgb(0, 50, 255)')
            })
  
 
@@ -86,13 +88,13 @@ describe('Проверка работы связного списка', () => {
 
         cy.clock()
 
-        cy.get('[class*=circle_small]').should('exist').should('have.css', 'border-color', 'rgb(210, 82, 225)').should('have.text', '1')
+        cy.get(circleSmall).should('exist').should('have.css', 'border-color', 'rgb(210, 82, 225)').should('have.text', '1')
 
         cy.tick(1000) 
 
-        cy.get('[class*=circle_content]').should(($circle) => {
+        cy.get(circleContent).should(($circle) => {
             expect($circle.eq(3)).to.contain('1')
-            expect($circle.eq(3).children('[cy-id="circle"]')).to.have.css('border-color', 'rgb(127, 224, 81)')
+            expect($circle.eq(3).children(circle)).to.have.css('border-color', 'rgb(127, 224, 81)')
            })
         
         cy.tick(1000)   
@@ -100,17 +102,14 @@ describe('Проверка работы связного списка', () => {
         cy.get('input[type="number"]').type(2).should('have.value', '2')
         cy.contains('Удалить по индексу').should('not.be.disabled').click()
 
-        cy.get('[class*=circle_small]').should('exist')
+        cy.get(circleSmall).should('exist')
 
-        cy.get('[class*=circle_content]').should(($circle) => {
+        cy.get(circleContent).should(($circle) => {
             expect($circle.eq(2)).to.contain('')
-            expect($circle.eq(2).children('[cy-id="circle"]')).to.have.css('border-color', 'rgb(0, 50, 255)')
+            expect($circle.eq(2).children(circle)).to.have.css('border-color', 'rgb(0, 50, 255)')
            })
 
         cy.tick(1000)     
-
-  
-
 
     })
 })
